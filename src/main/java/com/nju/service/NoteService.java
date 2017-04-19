@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface NoteService {
     NoteModel getNote(Integer nid);
-    List<NoteModel> search(String keyword);
+    List<NoteModel> search(String keyword, Integer uid);
     List<NoteModel> getNotesByDir(Integer did);
     DirModel getDir(Integer did);
     List<NoteModel> getNotesByUser(Integer uid);
