@@ -48,11 +48,13 @@
                 </ul>
             </li>
             <li><a href="#">Item 2</a></li>
+
+            <li><button class="hollow button">创建新归档</button></li>
         </ul>
 
     </div>
     <div class="column" style="">
-        <form method="post" action="/posts" style="height: 100%">
+        <!--<form method="post" action="/posts" style="height: 100%">-->
             <!--<div class="form-group">-->
                 <!--<input id="title" name="title" type="text" placeholder="标题">-->
             <!--</div>-->
@@ -69,8 +71,30 @@
                     <div id="preview" style="height: 650px;"></div>
                 </div>
             </div>
-            <button type='submit' class="hollow button">创建</button>
-        </form>
+
+            <div class="reveal" id="exampleModal1" data-reveal>
+                <!--<h5>创建</h5>-->
+                <p class="lead">Your couch. It is mine.</p>
+
+                <label>创建
+                    <select>
+                        <option value="husker">item1</option>
+                        <option value="starbuck">item2</option>
+                    </select>
+                </label>
+
+                <button class="hollow button">确定</button>
+                <button class="hollow button secondary">取消</button>
+
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+
+            <button data-open="exampleModal1" class="hollow button">创建</button>
+        <!--</form>-->
     </div>
 </div>
 
