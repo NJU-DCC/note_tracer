@@ -5,7 +5,7 @@ import com.nju.vo.DirVO;
 import com.nju.vo.NoteDetailVO;
 import com.nju.vo.NoteInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,20 +18,21 @@ import java.util.List;
 /**
  * Created by disinuo on 17/4/18.
  */
-@RestController
+
+@Controller
 @RequestMapping("/note")
 public class NoteController {
     @Autowired
     NoteService noteService;
 
-    @RequestMapping("/")
-    public String home(ModelMap model,HttpSession session){
-        int userId=(int)session.getAttribute("userId");
-        List<DirVO> directorys= DirVO.entityToVO(noteService.getDirs(userId));
+    @RequestMapping("")
+    public ModelAndView home(){
+//        int userId=(int)session.getAttribute("userId");
+//        List<DirVO> directorys= DirVO.entityToVO(noteService.getDirs(userId));
+//
+//        model.addAttribute("dirs",directorys);
 
-        model.addAttribute("dirs",directorys);
-
-        return "home";
+        return new ModelAndView("/Login");
     }
 
     @RequestMapping("/getDirs")
