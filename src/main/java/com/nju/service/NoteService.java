@@ -16,11 +16,12 @@ public interface NoteService {
     List<NoteModel> getNotesByUser(Integer uid);
     List<DirModel> getDirs(Integer uid);
 
-    int transNote(String filename);
+    String transNote(String filename);
 
     int updateNote(NoteModel note);
     int deleteNote(Integer nid);
     int addNote(NoteModel note);
     int addDir(DirModel dir);
+    int updateDir(DirModel dir);
     int deleteDir(Integer did);
 }
