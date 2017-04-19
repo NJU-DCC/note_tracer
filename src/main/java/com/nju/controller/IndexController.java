@@ -10,9 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class IndexController {
 
-    @RequestMapping("/")
-    public ModelAndView home(){
-        return new ModelAndView("home");
-    }
+//    @RequestMapping("/")
+//    public ModelAndView home(){
+//        return new ModelAndView("home");
+//    }
 
 }

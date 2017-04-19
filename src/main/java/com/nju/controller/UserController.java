@@ -1,13 +1,11 @@
 package com.nju.controller;
 
-import com.nju.vo.DirectoryVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * Created by disinuo on 17/4/18.

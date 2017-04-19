@@ -1,8 +1,12 @@
 package com.nju.controller;
 
-import com.nju.vo.DirectoryVO;
+import com.nju.service.NoteService;
+import com.nju.vo.DirVO;
 import com.nju.vo.NoteDetailVO;
 import com.nju.vo.NoteInfoVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,10 +21,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/note")
 public class NoteController {
-    @RequestMapping("/getDirectories")
-    public List<DirectoryVO> getAllDirectories(HttpSession session){
+    @Autowired
+    NoteService noteService;
+
+    @RequestMapping("/")
+    public String home(ModelMap model,HttpSession session){
         int userId=(int)session.getAttribute("userId");
-        List<DirectoryVO> directorys=null;//TODO invoke real method
+        List<DirVO> directorys= DirVO.entityToVO(noteService.getDirs(userId));
+
+        model.addAttribute("dirs",directorys);
+
+        return "home";
+    }
+
+    @RequestMapping("/getDirs")
+    public List<DirVO> getAllDirs(HttpSession session){
+        int userId=(int)session.getAttribute("userId");
+        List<DirVO> directorys= DirVO.entityToVO(noteService.getDirs(userId));
+        for(DirVO dir:directorys){
+//            dir.setNotes(noteService.getNotesByDir(dir.getId()));
+            //TODO 关于note里面带不带内容的问题~！
+        }
         return directorys;
     }
     @RequestMapping("/search")
@@ -30,10 +51,10 @@ public class NoteController {
         return notes;
     }
     @RequestMapping("/get")
-    public NoteDetailVO showNote(@RequestParam int noteId,HttpSession session){
+    public String showNote(ModelMap model, @RequestParam int noteId, HttpSession session){
         int userId=(int)session.getAttribute("userid");
         NoteDetailVO note=null;//TODO
-        return note;
+        return "";
     }
     @RequestMapping("/update")
     public int update(@RequestParam NoteDetailVO noteDetailVO,HttpSession session){
@@ -47,11 +68,23 @@ public class NoteController {
         //TODO
         return 1;
     }
+    @RequestMapping("/addDir")
+    public int addDir(@RequestParam DirVO dirVO, HttpSession session){
+        int userId=(int)session.getAttribute("userid");
+        //TODO
+        return 1;
+    }
     @RequestMapping("/delete")
     public int delete(@RequestParam int noteId,HttpSession session){
         int userId=(int)session.getAttribute("userid");
         //TODO
         return 1;
+    }
+
+    public int transform(@RequestParam String fileName,HttpSession session){
+        int userId=(int)session.getAttribute("userid");
+        //TODO
+        return 0;
     }
 
 }

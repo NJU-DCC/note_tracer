@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class NoteDetailVO {
     private int id;
+    private int userId;
     private String name;
     private Date createTime;
     private Date updateTime;
@@ -14,14 +15,19 @@ public class NoteDetailVO {
     private String dirName;
     private String content;
 
-    public NoteDetailVO(int id, String name, Date createTime, Date updateTime, int dirId, String dirName, String content) {
+    public NoteDetailVO(int id,int userId, String name, Date createTime, Date updateTime, int dirId, String dirName, String content) {
         this.id = id;
+        this.userId=userId;
         this.name = name;
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.dirId = dirId;
         this.dirName = dirName;
         this.content = content;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public int getId() {
