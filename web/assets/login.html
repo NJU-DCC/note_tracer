@@ -4,23 +4,30 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundation for Sites</title>
+    <title>登录</title>
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        padding-top: 40px;
+    }
 
-<div class="card"  style="width: 300px;padding: 16px">
-    <div class="card-section">
-        <h4>登录</h4>
+</style>
 
+<div class="container">
+    <div class="card"  style="width: 300px;padding: 16px">
+        <div class="card-section">
+            <h4>登录</h4>
+        </div>
+        <input type="text" placeholder="用户名">
+        <input type="password" placeholder="密码">
+        <button class="hollow button">登录</button>
+        <button class="hollow button">注册</button>
     </div>
-    <input type="text" placeholder="用户名">
-    <input type="password" placeholder="密码">
-
-    <button class="hollow button">登录</button>
-    <button class="hollow button">注册</button>
-
 </div>
 
 </body>

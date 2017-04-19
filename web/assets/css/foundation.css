@@ -1192,10 +1192,10 @@ select {
       background-color: #2285a2;
       color: #0a0a0a; }
   .button.secondary {
-    background-color: #e9e9e9;
+    background-color: #bababa;
     color: #0a0a0a; }
     .button.secondary:hover, .button.secondary:focus {
-      background-color: #bababa;
+      background-color: #9e9e9e;
       color: #0a0a0a; }
   .button.alert {
     background-color: #c60f13;
@@ -1242,8 +1242,8 @@ select {
         border-color: #165366;
         color: #165366; }
     .button.hollow.secondary {
-      border: 1px solid #e9e9e9;
-      color: #e9e9e9; }
+      border: 1px solid #bababa;
+      color: #bababa; }
       .button.hollow.secondary:hover, .button.hollow.secondary:focus {
         border-color: #757575;
         color: #757575; }
@@ -1293,7 +1293,7 @@ select {
       opacity: 0.25;
       cursor: not-allowed; }
       .button.disabled.secondary, .button.disabled.secondary:hover, .button.disabled.secondary:focus, .button[disabled].secondary, .button[disabled].secondary:hover, .button[disabled].secondary:focus {
-        background-color: #e9e9e9;
+        background-color: #bababa;
         color: #0a0a0a; }
     .button.disabled.alert, .button[disabled].alert {
       opacity: 0.25;
@@ -1405,10 +1405,10 @@ select {
       background-color: #2285a2;
       color: #0a0a0a; }
   .button-group.secondary .button {
-    background-color: #e9e9e9;
+    background-color: #bababa;
     color: #0a0a0a; }
     .button-group.secondary .button:hover, .button-group.secondary .button:focus {
-      background-color: #bababa;
+      background-color: #9e9e9e;
       color: #0a0a0a; }
   .button-group.alert .button {
     background-color: #c60f13;
@@ -2945,7 +2945,7 @@ table.hover:not(.unstriped) tr:nth-of-type(even):hover {
     background: #2ba6cb;
     color: #0a0a0a; }
   .badge.secondary {
-    background: #e9e9e9;
+    background: #bababa;
     color: #0a0a0a; }
   .badge.alert {
     background: #c60f13;
@@ -2977,7 +2977,7 @@ table.hover:not(.unstriped) tr:nth-of-type(even):hover {
     background: #2ba6cb;
     color: #0a0a0a; }
   .label.secondary {
-    background: #e9e9e9;
+    background: #bababa;
     color: #0a0a0a; }
   .label.alert {
     background: #c60f13;
@@ -3003,7 +3003,7 @@ table.hover:not(.unstriped) tr:nth-of-type(even):hover {
   .progress.primary .progress-meter {
     background-color: #2ba6cb; }
   .progress.secondary .progress-meter {
-    background-color: #e9e9e9; }
+    background-color: #bababa; }
   .progress.alert .progress-meter {
     background-color: #c60f13; }
   .progress.success .progress-meter {
