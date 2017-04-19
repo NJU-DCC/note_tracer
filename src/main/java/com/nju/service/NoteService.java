@@ -10,17 +10,18 @@ import java.util.List;
  */
 public interface NoteService {
     NoteModel getNote(Integer nid);
-    List<NoteModel> search(String keyword);
+    List<NoteModel> search(String keyword, Integer uid);
     List<NoteModel> getNotesByDir(Integer did);
     DirModel getDir(Integer did);
     List<NoteModel> getNotesByUser(Integer uid);
     List<DirModel> getDirs(Integer uid);
 
-    int transNote(String filename);
+    String transNote(String filename);
 
     int updateNote(NoteModel note);
     int deleteNote(Integer nid);
     int addNote(NoteModel note);
     int addDir(DirModel dir);
+    int updateDir(DirModel dir);
     int deleteDir(Integer did);
 }
