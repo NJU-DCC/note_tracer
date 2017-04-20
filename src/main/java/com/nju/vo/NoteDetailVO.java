@@ -1,6 +1,11 @@
 package com.nju.vo;
 
+import com.nju.model.DirModel;
+import com.nju.model.NoteModel;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by disinuo on 17/4/18.
@@ -15,17 +20,24 @@ public class NoteDetailVO {
     private String dirName;
     private String content;
 
-    public NoteDetailVO(int id,int userId, String name, Date createTime, Date updateTime, int dirId, String dirName, String content) {
-        this.id = id;
-        this.userId=userId;
-        this.name = name;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-        this.dirId = dirId;
-        this.dirName = dirName;
-        this.content = content;
+    public static List<NoteDetailVO> entityToVO(List<NoteModel> noteModels, List<DirModel> dirs){
+        List<NoteDetailVO> vos=new ArrayList<NoteDetailVO>(noteModels.size());
+        for(int i=0,len=noteModels.size();i<len;i++){
+            vos.add(new NoteDetailVO(noteModels.get(i),dirs.get(i)));
+        }
+        return vos;
     }
 
+    public NoteDetailVO(NoteModel noteModel, DirModel dirModel){
+        this.id=noteModel.getId();
+        this.userId=noteModel.getUserId();
+        this.name=noteModel.getTitle();
+        this.createTime=noteModel.getCreateAt();
+        this.updateTime=noteModel.getUpdateAt();
+        this.dirId=noteModel.getDirId();
+        this.content=noteModel.getContent();
+        this.dirName=dirModel.getTitle();
+    }
     public int getUserId() {
         return userId;
     }
