@@ -16,6 +16,7 @@ public class DirVO {
     String description;
     Date createTime;
     List<NoteInfoVO> notes;
+    int numOfNotes;
 
 
     public DirVO(DirModel dirModel){
@@ -32,9 +33,21 @@ public class DirVO {
         }
         return vos;
     }
+    public static DirModel voToEntity(DirVO vo){
+        DirModel dirModel=new DirModel();
+        dirModel.setCreateAt(vo.getCreateTime());
+        dirModel.setTitle(vo.getName());
+        dirModel.setUserId(vo.getUserId());
+        dirModel.setId(vo.getId());
+        dirModel.setDescription(vo.getDescription());
+        return dirModel;
+    }
 
     public int getId() {
         return id;
+    }
+    public int getNumOfNotes() {
+        return numOfNotes;
     }
 
     public int getUserId() {
@@ -59,5 +72,6 @@ public class DirVO {
 
     public void setNotes(List<NoteInfoVO> notes) {
         this.notes = notes;
+        this.numOfNotes=notes.size();
     }
 }

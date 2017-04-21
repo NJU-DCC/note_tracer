@@ -11,7 +11,7 @@ import java.util.List;
  * Created by disinuo on 17/4/18.
  */
 public class NoteDetailVO {
-    private int id;
+    private int id=-1;
     private int userId;
     private String name;
     private Date createTime;
@@ -26,6 +26,20 @@ public class NoteDetailVO {
             vos.add(new NoteDetailVO(noteModels.get(i),dirs.get(i)));
         }
         return vos;
+    }
+
+    public static NoteModel voToEntity(NoteDetailVO vo){
+        NoteModel noteModel=new NoteModel();
+        noteModel.setCreateAt(vo.getCreateTime());
+        noteModel.setId(vo.getId());
+        noteModel.setContent(vo.getContent());
+        noteModel.setUserId(vo.getUserId());
+        noteModel.setTitle(vo.getName());
+        noteModel.setDirId(vo.getDirId());
+        noteModel.setUpdateAt(vo.getUpdateTime());
+
+        return noteModel;
+
     }
 
     public NoteDetailVO(NoteModel noteModel, DirModel dirModel){
