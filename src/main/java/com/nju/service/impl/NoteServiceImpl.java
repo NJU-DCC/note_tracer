@@ -5,6 +5,8 @@ import com.nju.dao.NoteDAO;
 import com.nju.model.DirModel;
 import com.nju.model.NoteModel;
 import com.nju.service.NoteService;
+import com.nju.util.ApiUtil;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,8 +63,13 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public String transNote(String filename) {
-        //TODO
-        return null;
+        String response = ApiUtil.postFile(filename, "chs");
+        JSONObject res = new JSONObject(response);
+        String text = res
+                .getJSONArray("ParsedResults")
+                .getJSONObject(0)
+                .getString("ParsedText");
+        return text;
     }
 
     @Override
