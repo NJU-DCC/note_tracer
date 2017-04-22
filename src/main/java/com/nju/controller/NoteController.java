@@ -1,6 +1,5 @@
 package com.nju.controller;
 
-import com.nju.controller.stub.NoteServiceStub;
 import com.nju.model.DirModel;
 import com.nju.model.NoteModel;
 import com.nju.service.NoteService;
