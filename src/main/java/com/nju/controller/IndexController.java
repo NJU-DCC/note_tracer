@@ -22,8 +22,7 @@ public class IndexController {
 //    NoteService noteService;
 
     @GetMapping("/")
-    public String loginForm(Model model){
-//        model.addAttribute("login", new LoginMessage());
+    public String getLogin(Model model){
         return "login";
     }
 
