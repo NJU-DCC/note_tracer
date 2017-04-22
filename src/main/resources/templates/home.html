@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation for Sites</title>
+    <link rel="stylesheet" href="../../static/css/foundation.css">
+    <link rel="stylesheet" href="../../static/css/app.css">
+</head>
+<body>
+<style>
+    #content{
+        height: 385px;
+    }
+    #preview{
+        height: 460px;
+        overflow: auto;
+    }
+</style>
+<div class="top-bar">
+    <div class="top-bar-title">
+    <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
+      <button class="menu-icon dark" type="button" data-toggle></button>
+    </span>
+        <strong>Note Tracer</strong>
+    </div>
+
+    <div id="responsive-menu">
+        <div class="top-bar-right">
+            <ul class="menu">
+                <li><input type="search" placeholder="Search"></li>
+                <li><button type="button" class="button">Search</button></li>
+                <li><a href="#">登录</a></li>
+                <li><a href="#">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row" style="height: 100%;">
+    <div class="small-2 large-2 column" style="background-color:#f1f1f1;">
+        <ul class="vertical menu" style="float: left;" data-accordion-menu>
+            <li>
+                <a href="#">Item 1</a>
+                <ul class="menu vertical nested">
+                    <li><a href="#">Item 1A</a></li>
+                    <li><a href="#">Item 1B</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Item 2</a></li>
+
+            <li><button class="hollow button">创建新归档</button></li>
+        </ul>
+
+    </div>
+    <div class="column" style="">
+        <!--<form method="post" action="/posts" style="height: 100%">-->
+            <!--<div class="form-group">-->
+                <!--<input id="title" name="title" type="text" placeholder="标题">-->
+            <!--</div>-->
+            <ul class="menu">
+                <li><a href="#">添加图片</a></li>
+                <li><a href="#">识别图片</a></li>
+            </ul>
+            <div  class="row" style="height: 650px;margin-bottom: 12px">
+                <div class="large-6 column">
+                    <textarea id="content" name="content"
+                              style="height: 650px;"></textarea>
+                </div>
+                <div class="large-6 column">
+                    <div id="preview" style="height: 650px;"></div>
+                </div>
+            </div>
+
+            <div class="reveal" id="exampleModal1" data-reveal>
+                <!--<h5>创建</h5>-->
+                <p class="lead">Your couch. It is mine.</p>
+
+                <label>创建
+                    <select>
+                        <option value="husker">item1</option>
+                        <option value="starbuck">item2</option>
+                    </select>
+                </label>
+
+                <button class="hollow button">确定</button>
+                <button class="hollow button secondary">取消</button>
+
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+
+            <button data-open="exampleModal1" class="hollow button">创建</button>
+        <!--</form>-->
+    </div>
+</div>
+
+
+
+
+<script src="js/vendor/jquery.js"></script>
+<script src="js/vendor/what-input.js"></script>
+<script src="js/vendor/foundation.js"></script>
+<script src="js/app.js"></script>
+<script src='http://cdn.bootcss.com/marked/0.3.2/marked.min.js'></script>
+<script type="text/javascript" src="js/myjs.js"></script>
+<!--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+</body>
+</html>
