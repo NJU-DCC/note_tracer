@@ -1,6 +1,6 @@
 package com.nju.controller;
 
-import com.nju.controller.stub.NoteServiceStub;
+import com.mysql.cj.x.json.JsonArray;
 import com.nju.model.DirModel;
 import com.nju.model.NoteModel;
 import com.nju.service.NoteService;
@@ -9,16 +9,28 @@ import com.nju.vo.NoteDetailVO;
 import com.nju.vo.NoteInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+
 
 /**
  * Created by disinuo on 17/4/18.
@@ -27,6 +39,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/note")
 public class NoteController {
+    private static String UPLOADED_FOLDER = "/Users/disinuo/Documents/temps/";
+    @Autowired
+    ServletContext context;
+
     @Autowired
     NoteService noteService;
 //    NoteService noteService=new NoteServiceStub();
@@ -110,8 +126,29 @@ public class NoteController {
     }
     @RequestMapping("/transform")
     @ResponseBody
-    public String transform(@RequestParam String fileName){
-        return noteService.transNote(fileName);
+    public Model transform(@RequestParam("file") MultipartFile file,Model model) {
+        String filePath = context.getRealPath("/resources/upload-images/");
+
+        if (file.isEmpty()) {
+            //TODO 反馈空文件错误
+            model.addAttribute("msg","empty_file");
+            return model;
+        }
+
+        try {
+            byte[] bytes = file.getBytes();
+            String path_str=filePath+file.getOriginalFilename();
+            FileUtils.writeByteArrayToFile(new File(path_str), bytes);
+
+            String content=noteService.transNote(path_str);
+            model.addAttribute("content",content);
+            model.addAttribute("msg","success");
+        } catch (IOException e) {
+            model.addAttribute("msg","something_wrong");
+            e.printStackTrace();
+        }
+
+        return model;
     }
 
 }
