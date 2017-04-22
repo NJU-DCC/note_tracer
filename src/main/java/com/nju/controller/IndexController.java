@@ -5,12 +5,9 @@ import com.nju.service.NoteService;
 import com.nju.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.util.Calendar;
 
 /**
  * Created by raychen on 2017/4/17.
@@ -19,14 +16,15 @@ import java.util.Calendar;
 public class IndexController {
 
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    NoteService noteService;
+//    @Autowired
+//    UserService userService;
+//    @Autowired
+//    NoteService noteService;
 
-    @RequestMapping("/")
-    public String home(){
-        return "/static/index.html";
+    @GetMapping("/")
+    public String loginForm(Model model){
+//        model.addAttribute("login", new LoginMessage());
+        return "login";
     }
 
 }
