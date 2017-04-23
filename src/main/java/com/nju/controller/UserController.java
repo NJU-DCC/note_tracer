@@ -1,5 +1,7 @@
 package com.nju.controller;
 
+import com.nju.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("")
 public class UserController {
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public ModelAndView showLoginPage(){
@@ -38,11 +42,12 @@ public class UserController {
     }
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public ModelAndView register(@RequestParam("username") String username,
-                                 @RequestParam("password") String password){
-        //TODO invoke the real register method
+                                 @RequestParam("password") String password,
+                                 @RequestParam("email")String email){
         System.err.println("in register");
         System.err.println(username);
         System.err.println(password);
+        userService.register(username,password,email);
 
         return new ModelAndView("redirect:/login");
     }
