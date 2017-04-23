@@ -10,14 +10,17 @@ import java.util.List;
  * Created by disinuo on 17/4/18.
  */
 public class DirVO {
-    int id;
-    int userId;
-    String name;
-    String description;
-    Date createTime;
-    List<NoteInfoVO> notes;
-    int numOfNotes;
+    private int id;
+    private int userId;
+    private String name;
+    private String description;
+    private Date createTime;
+    private List<NoteInfoVO> notes;
+    private int numOfNotes;
 
+    public DirVO(){
+
+    }
 
     public DirVO(DirModel dirModel){
         this.id=dirModel.getId();
@@ -73,5 +76,29 @@ public class DirVO {
     public void setNotes(List<NoteInfoVO> notes) {
         this.notes = notes;
         this.numOfNotes=notes.size();
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setNumOfNotes(int numOfNotes) {
+        this.numOfNotes = numOfNotes;
     }
 }

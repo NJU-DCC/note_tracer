@@ -111,7 +111,7 @@ public class NoteController {
     }
     @RequestMapping("/add")
     @ResponseBody
-    public int addNote(@ModelAttribute NoteDetailVO noteDetailVO,HttpSession session){
+    public int addNote(NoteDetailVO noteDetailVO,HttpSession session){
         NoteModel noteModel=NoteDetailVO.voToEntity(noteDetailVO);
         int uid=(int)session.getAttribute("userId");
         noteModel.setUserId(uid);
@@ -120,11 +120,14 @@ public class NoteController {
     }
     @RequestMapping("/addDir")
     @ResponseBody
-    public int addDir(@ModelAttribute DirVO dirVO,HttpSession session){
+    public int addDir(DirVO dirVO,HttpSession session){
+        System.err.println("addDir controller vo title= "+dirVO.getName());
+
         DirModel dirModel=DirVO.voToEntity(dirVO);
         int uid=(int)session.getAttribute("userId");
         dirModel.setUserId(uid);
         dirModel.setCreateAt(new Date());
+        System.err.println("addDir controller title= "+dirModel.getTitle());
         return noteService.addDir(dirModel);
     }
     @RequestMapping("/delete")

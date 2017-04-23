@@ -40,6 +40,7 @@ public class NoteInfoVO {
         }
         return vos;
     }
+    public NoteInfoVO(){}
 
 
     public NoteInfoVO(NoteModel noteModel,DirVO dirVO){
@@ -82,5 +83,34 @@ public class NoteInfoVO {
 
     public String getDirName() {
         return dirName;
+    }
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public void setDirId(int dirId) {
+        this.dirId = dirId;
+    }
+
+    public void setDirName(String dirName) {
+        this.dirName = dirName;
     }
 }

@@ -41,7 +41,7 @@ public class NoteDetailVO {
         return noteModel;
 
     }
-
+    public NoteDetailVO(){}
     public NoteDetailVO(NoteModel noteModel, DirModel dirModel){
         this.id=noteModel.getId();
         this.userId=noteModel.getUserId();
@@ -83,4 +83,37 @@ public class NoteDetailVO {
     public String getContent() {
         return content;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public void setDirId(int dirId) {
+        this.dirId = dirId;
+    }
+
+    public void setDirName(String dirName) {
+        this.dirName = dirName;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
+
