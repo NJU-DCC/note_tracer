@@ -44,53 +44,33 @@ public class NoteController {
 
     @Autowired
     NoteService noteService;
-//    NoteService noteService=new NoteServiceStub();
+    @RequestMapping("")
+    public ModelAndView home(ModelAndView model,HttpSession session){
+        int userId=1;//(int)session.getAttribute("userId");
+        List<DirVO> directorys= DirVO.entityToVO(noteService.getDirs(userId));
+        for(DirVO dir:directorys){
+            int dirId=dir.getId();
+            List<NoteModel> noteModels=noteService.getNotesByDir(dirId);
+            List<String> dirNames=new ArrayList<String>(noteModels.size());
+            for(int i=0;i<noteModels.size();i++){
+                dirNames.add(dir.getName());
+            }
+            dir.setNotes(NoteInfoVO.entityToVO_dirName(noteModels,dirNames));
+        }
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public ModelAndView testHome(ModelAndView model){
-        List<DirVO> vos = new ArrayList<>();
-        List<NoteInfoVO> notevos = new ArrayList<>();
-        NoteModel notemodel = new NoteModel();
-        notemodel.setTitle("name1");
-        NoteInfoVO notevo = new NoteInfoVO(notemodel,"dir1");
-        notevos.add(notevo);
-        DirModel dirModel = new DirModel();
-        dirModel.setTitle("dir1");
-        DirVO vo = new DirVO(dirModel);
-        vo.setNotes(notevos);
-        vos.add(vo);
-
-        model.getModel().put("dirs",vos);
-        model.getModel().put("test","test");
+        for(DirVO d:directorys){
+            System.out.println("文件夹：id="+d.getId()+", name="+d.getName()+" num="+d.getNumOfNotes());
+            for(NoteInfoVO note:d.getNotes()){
+                System.out.println("   笔记：id="+note.getId()+" name="+note.getName()+" dirId="+note.getDirId()+" dirName="+note.getDirName());
+            }
+        }
+        model.getModel().put("dirs",directorys);
         model.setViewName("home");
-
         return model;
     }
-//    @RequestMapping("/")
-//    public String home(ModelMap model,HttpSession session){
-//        int userId=(int)session.getAttribute("userId");
-//        List<DirVO> directorys= DirVO.entityToVO(noteService.getDirs(userId));
-//        for(DirVO dir:directorys){
-//            int dirId=dir.getId();
-//            List<NoteModel> noteModels=noteService.getNotesByDir(dirId);
-//            List<String> dirNames=new ArrayList<String>(noteModels.size());
-//            for(int i=0;i<noteModels.size();i++){
-//                dirNames.add(dir.getName());
-//            }
-//            dir.setNotes(NoteInfoVO.entityToVO_dirName(noteModels,dirNames));
-//        }
-//
-//        for(DirVO d:directorys){
-//            System.out.println("文件夹：id="+d.getId()+", name="+d.getName()+" num="+d.getNumOfNotes());
-//            for(NoteInfoVO note:d.getNotes()){
-//                System.out.println("   笔记：id="+note.getId()+" name="+note.getName()+" dirId="+note.getDirId()+" dirName="+note.getDirName());
-//            }
-//        }
-//        model.addAttribute("dirs",directorys);
-//        return "home";
-//    }
 
     @RequestMapping("/search")
+    @ResponseBody
     public List<NoteInfoVO> search(@RequestParam String keyword, HttpSession session){
         int userId=(int)session.getAttribute("userid");
         List<NoteModel> noteModels=noteService.search(keyword,userId);
@@ -104,7 +84,10 @@ public class NoteController {
     }
 
     @RequestMapping("/show")
+    @ResponseBody
     public NoteDetailVO showNote(@RequestParam int noteId){
+        System.out.println("----------in controller showNote-----------");
+
         NoteModel noteModel=noteService.getNote(noteId);
         DirModel dirModel=noteService.getDir(noteModel.getDirId());
         NoteDetailVO note=new NoteDetailVO(noteModel,dirModel);
@@ -112,16 +95,19 @@ public class NoteController {
     }
 
     @RequestMapping("/update")
+    @ResponseBody
     public int updateNote(@RequestParam NoteDetailVO noteDetailVO){
         NoteModel noteModel=NoteDetailVO.voToEntity(noteDetailVO);
         return noteService.updateNote(noteModel);
     }
     @RequestMapping("/updateDir")
+    @ResponseBody
     public int updateDir(@RequestParam DirVO dirVO){
         DirModel dirModel=DirVO.voToEntity(dirVO);
         return noteService.updateDir(dirModel);
     }
     @RequestMapping("/add")
+    @ResponseBody
     public int addNote(@RequestParam NoteDetailVO noteDetailVO,HttpSession session){
         NoteModel noteModel=NoteDetailVO.voToEntity(noteDetailVO);
         int uid=(int)session.getAttribute("userId");
@@ -129,6 +115,7 @@ public class NoteController {
         return noteService.addNote(noteModel);
     }
     @RequestMapping("/addDir")
+    @ResponseBody
     public int addDir(@RequestParam DirVO dirVO,HttpSession session){
         DirModel dirModel=DirVO.voToEntity(dirVO);
         int uid=(int)session.getAttribute("userId");
@@ -136,10 +123,12 @@ public class NoteController {
         return noteService.addDir(dirModel);
     }
     @RequestMapping("/delete")
+    @ResponseBody
     public int deleteNote(@RequestParam int noteId,HttpSession session){
        return noteService.deleteNote(noteId);
     }
     @RequestMapping("/deleteDir")
+    @ResponseBody
     public int deleteDir(@RequestParam int dirId){
         return noteService.deleteDir(dirId);
     }
