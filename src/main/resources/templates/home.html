@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js" >
+<html class="no-js" lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
@@ -39,15 +39,21 @@
 </div>
 <div class="row" style="height: 100%;">
     <div class="small-2 large-2 column" style="background-color:#f1f1f1;">
-        <ul class="vertical menu" style="float: left;" data-accordion-menu>
+        <ul class="vertical menu" style="float: left;" data-accordion-menu th:each="dir:${dirs}">
             <li>
-                <a href="#">Item 1</a>
-                <ul class="menu vertical nested">
-                    <li><a href="#">Item 1A</a></li>
-                    <li><a href="#">Item 1B</a></li>
+                <a href="#" th:text="${dir.name}"></a>
+                <ul class="menu vertical nested" th:each="note:${dir.notes}">
+                    <li><a href="#" th:text="${note.name}"></a></li>
                 </ul>
             </li>
-            <li><a href="#">Item 2</a></li>
+            <!--<li>-->
+                <!--<a href="#">${username}</a>-->
+                <!--<ul class="menu vertical nested">-->
+                    <!--<li><a href="#">Item 1A</a></li>-->
+                    <!--<li><a href="#">Item 1B</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li><a href="#">Item 2</a></li>-->
 
             <li><button class="hollow button">创建新归档</button></li>
         </ul>

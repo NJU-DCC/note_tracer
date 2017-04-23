@@ -1,7 +1,7 @@
 package com.nju.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.nju.model.DirModel;
 import com.nju.model.NoteModel;
 import com.nju.service.NoteService;
@@ -13,9 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
@@ -48,29 +46,49 @@ public class NoteController {
     NoteService noteService;
 //    NoteService noteService=new NoteServiceStub();
 
-    @RequestMapping("/")
-    public String home(ModelMap model,HttpSession session){
-        int userId=(int)session.getAttribute("userId");
-        List<DirVO> directorys= DirVO.entityToVO(noteService.getDirs(userId));
-        for(DirVO dir:directorys){
-            int dirId=dir.getId();
-            List<NoteModel> noteModels=noteService.getNotesByDir(dirId);
-            List<String> dirNames=new ArrayList<String>(noteModels.size());
-            for(int i=0;i<noteModels.size();i++){
-                dirNames.add(dir.getName());
-            }
-            dir.setNotes(NoteInfoVO.entityToVO_dirName(noteModels,dirNames));
-        }
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public ModelAndView testHome(ModelAndView model){
+        List<DirVO> vos = new ArrayList<>();
+        List<NoteInfoVO> notevos = new ArrayList<>();
+        NoteModel notemodel = new NoteModel();
+        notemodel.setTitle("name1");
+        NoteInfoVO notevo = new NoteInfoVO(notemodel,"dir1");
+        notevos.add(notevo);
+        DirModel dirModel = new DirModel();
+        dirModel.setTitle("dir1");
+        DirVO vo = new DirVO(dirModel);
+        vo.setNotes(notevos);
+        vos.add(vo);
 
-        for(DirVO d:directorys){
-            System.out.println("文件夹：id="+d.getId()+", name="+d.getName()+" num="+d.getNumOfNotes());
-            for(NoteInfoVO note:d.getNotes()){
-                System.out.println("   笔记：id="+note.getId()+" name="+note.getName()+" dirId="+note.getDirId()+" dirName="+note.getDirName());
-            }
-        }
-        model.addAttribute("dirs",directorys);
-        return "Login";
+        model.getModel().put("dirs",vos);
+        model.getModel().put("test","test");
+        model.setViewName("home");
+
+        return model;
     }
+//    @RequestMapping("/")
+//    public String home(ModelMap model,HttpSession session){
+//        int userId=(int)session.getAttribute("userId");
+//        List<DirVO> directorys= DirVO.entityToVO(noteService.getDirs(userId));
+//        for(DirVO dir:directorys){
+//            int dirId=dir.getId();
+//            List<NoteModel> noteModels=noteService.getNotesByDir(dirId);
+//            List<String> dirNames=new ArrayList<String>(noteModels.size());
+//            for(int i=0;i<noteModels.size();i++){
+//                dirNames.add(dir.getName());
+//            }
+//            dir.setNotes(NoteInfoVO.entityToVO_dirName(noteModels,dirNames));
+//        }
+//
+//        for(DirVO d:directorys){
+//            System.out.println("文件夹：id="+d.getId()+", name="+d.getName()+" num="+d.getNumOfNotes());
+//            for(NoteInfoVO note:d.getNotes()){
+//                System.out.println("   笔记：id="+note.getId()+" name="+note.getName()+" dirId="+note.getDirId()+" dirName="+note.getDirName());
+//            }
+//        }
+//        model.addAttribute("dirs",directorys);
+//        return "home";
+//    }
 
     @RequestMapping("/search")
     public List<NoteInfoVO> search(@RequestParam String keyword, HttpSession session){

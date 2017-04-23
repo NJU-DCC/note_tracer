@@ -21,9 +21,9 @@ public class IndexController {
 //    @Autowired
 //    NoteService noteService;
 
-    @GetMapping("/")
-    public String getLogin(Model model){
-        return "login";
-    }
+//    @GetMapping("/")
+//    public String getLogin(Model model){
+//        return "login";
+//    }
 
 }

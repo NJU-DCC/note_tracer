@@ -2,6 +2,7 @@ package com.nju.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,14 +25,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public ModelAndView handleLoginRequest(HttpSession session,String name,String password){
+    public ModelAndView handleLoginRequest(@RequestParam("username") String username,
+                                           @RequestParam("password") String password,HttpSession session){
         int userId=0;//TODO invoke the real login method
+
+        System.err.println("in login");
+        System.err.println(username);
+        System.err.println(password);
+
         session.setAttribute("userId",userId);
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/note/");
     }
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public ModelAndView register(String name,String password){
+    public ModelAndView register(@RequestParam("username") String username,
+                                 @RequestParam("password") String password){
         //TODO invoke the real register method
+        System.err.println("in register");
+        System.err.println(username);
+        System.err.println(password);
+
         return new ModelAndView("redirect:/login");
     }
 
