@@ -29,27 +29,42 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public ModelAndView handleLoginRequest(@RequestParam("username") String username,
-                                           @RequestParam("password") String password,HttpSession session){
-        int userId=0;//TODO invoke the real login method
-
+    public ModelAndView handleLoginRequest(
+            ModelAndView model,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,HttpSession session){
         System.err.println("in login");
         System.err.println(username);
         System.err.println(password);
+        //user not exist = -1
+        //password wrong = 0
+        //right= userId
+        int result=userService.login(username,password);
+        System.err.println("service--login--result= "+result);
 
-        session.setAttribute("userId",userId);
-        return new ModelAndView("redirect:/note/");
+        //TODO invoke the real login method
+        if(result>0){
+            session.setAttribute("userId",result);
+            return new ModelAndView("redirect:/note");
+        }else {
+            model.getModel().put("msg",result);
+            return model;
+        }
+
     }
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public ModelAndView register(@RequestParam("username") String username,
-                                 @RequestParam("password") String password,
-                                 @RequestParam("email")String email){
+    public ModelAndView register(
+            ModelAndView model,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam("email")String email){
         System.err.println("in register");
         System.err.println(username);
         System.err.println(password);
-        userService.register(username,password,email);
-
-        return new ModelAndView("redirect:/login");
+        int result=userService.register(username,password,email);
+        model.getModel().put("msg",result);
+        model.setViewName("redirect:/login");
+        return model;
     }
 
     @RequestMapping(value = "/logout")

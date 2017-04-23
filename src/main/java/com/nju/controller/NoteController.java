@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +47,7 @@ public class NoteController {
     NoteService noteService;
     @RequestMapping("")
     public ModelAndView home(ModelAndView model,HttpSession session){
-        int userId=1;//(int)session.getAttribute("userId");
+        int userId=(int)session.getAttribute("userId");
         List<DirVO> directorys= DirVO.entityToVO(noteService.getDirs(userId));
         for(DirVO dir:directorys){
             int dirId=dir.getId();
@@ -72,8 +73,9 @@ public class NoteController {
     @RequestMapping("/search")
     @ResponseBody
     public List<NoteInfoVO> search(@RequestParam String keyword, HttpSession session){
-        int userId=(int)session.getAttribute("userid");
+        int userId=(int)session.getAttribute("userId");
         List<NoteModel> noteModels=noteService.search(keyword,userId);
+        System.err.println("in search controller,resultSize= "+noteModels.size());
         List<String> dirNames=new ArrayList<String>(noteModels.size());
         for(NoteModel noteModel:noteModels){
             String dirName=noteService.getDir(noteModel.getDirId()).getTitle();
@@ -98,6 +100,7 @@ public class NoteController {
     @ResponseBody
     public int updateNote(@RequestParam NoteDetailVO noteDetailVO){
         NoteModel noteModel=NoteDetailVO.voToEntity(noteDetailVO);
+        noteModel.setUpdateAt(new Date());
         return noteService.updateNote(noteModel);
     }
     @RequestMapping("/updateDir")
@@ -112,6 +115,7 @@ public class NoteController {
         NoteModel noteModel=NoteDetailVO.voToEntity(noteDetailVO);
         int uid=(int)session.getAttribute("userId");
         noteModel.setUserId(uid);
+        noteModel.setCreateAt(new Date());
         return noteService.addNote(noteModel);
     }
     @RequestMapping("/addDir")
@@ -120,6 +124,7 @@ public class NoteController {
         DirModel dirModel=DirVO.voToEntity(dirVO);
         int uid=(int)session.getAttribute("userId");
         dirModel.setUserId(uid);
+        dirModel.setCreateAt(new Date());
         return noteService.addDir(dirModel);
     }
     @RequestMapping("/delete")
