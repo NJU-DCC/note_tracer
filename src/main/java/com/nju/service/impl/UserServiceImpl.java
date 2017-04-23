@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public int login(String username, String password) {
         UserModel user = userDAO.findByUserName(username);
         if (user == null) return -1;
-        if (user.getPassword().equals(password)) return 0;
+        if (!user.getPassword().equals(password)) return 0;
         return user.getId();
     }
 }
