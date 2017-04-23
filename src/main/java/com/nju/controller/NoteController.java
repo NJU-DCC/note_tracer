@@ -140,10 +140,14 @@ public class NoteController {
     public int deleteDir(@RequestParam int dirId){
         return noteService.deleteDir(dirId);
     }
+
+
     @RequestMapping(value = "/transform",method = RequestMethod.POST)
     @ResponseBody
-    public String transform(@RequestParam("file") MultipartFile file,Model model) {
+    public String transform(@RequestParam("file") MultipartFile file) {
+        System.err.println("in transform controller");
         String filePath = context.getRealPath("/resources/upload-images/");
+        System.err.println(file.getOriginalFilename());
 
         if (file.isEmpty()) {
             //TODO 反馈空文件错误
@@ -156,15 +160,16 @@ public class NoteController {
             byte[] bytes = file.getBytes();
             String path_str=filePath+file.getOriginalFilename();
             FileUtils.writeByteArrayToFile(new File(path_str), bytes);
+            System.err.println(path_str);
 
             String content=noteService.transNote(path_str);
-            model.addAttribute("content",content);
-            model.addAttribute("msg","success");
+//            model.addAttribute("content",content);
+//            model.addAttribute("msg","success");
             System.err.println("controller,transformed content: "+content);
             return content;
         } catch (IOException e) {
             //TODO TOO_LARGE,...
-            model.addAttribute("msg","something_wrong");
+//            model.addAttribute("msg","something_wrong");
             e.printStackTrace();
         }
 
