@@ -98,20 +98,20 @@ public class NoteController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public int updateNote(@RequestParam NoteDetailVO noteDetailVO){
+    public int updateNote(@ModelAttribute NoteDetailVO noteDetailVO){
         NoteModel noteModel=NoteDetailVO.voToEntity(noteDetailVO);
         noteModel.setUpdateAt(new Date());
         return noteService.updateNote(noteModel);
     }
     @RequestMapping("/updateDir")
     @ResponseBody
-    public int updateDir(@RequestParam DirVO dirVO){
+    public int updateDir(@ModelAttribute DirVO dirVO){
         DirModel dirModel=DirVO.voToEntity(dirVO);
         return noteService.updateDir(dirModel);
     }
     @RequestMapping("/add")
     @ResponseBody
-    public int addNote(@RequestParam NoteDetailVO noteDetailVO,HttpSession session){
+    public int addNote(@ModelAttribute NoteDetailVO noteDetailVO,HttpSession session){
         NoteModel noteModel=NoteDetailVO.voToEntity(noteDetailVO);
         int uid=(int)session.getAttribute("userId");
         noteModel.setUserId(uid);
@@ -120,7 +120,7 @@ public class NoteController {
     }
     @RequestMapping("/addDir")
     @ResponseBody
-    public int addDir(@RequestParam DirVO dirVO,HttpSession session){
+    public int addDir(@ModelAttribute DirVO dirVO,HttpSession session){
         DirModel dirModel=DirVO.voToEntity(dirVO);
         int uid=(int)session.getAttribute("userId");
         dirModel.setUserId(uid);
@@ -137,15 +137,16 @@ public class NoteController {
     public int deleteDir(@RequestParam int dirId){
         return noteService.deleteDir(dirId);
     }
-    @RequestMapping("/transform")
+    @RequestMapping(value = "/transform",method = RequestMethod.POST)
     @ResponseBody
-    public Model transform(@RequestParam("file") MultipartFile file,Model model) {
+    public String transform(@RequestParam("file") MultipartFile file,Model model) {
         String filePath = context.getRealPath("/resources/upload-images/");
 
         if (file.isEmpty()) {
             //TODO 反馈空文件错误
-            model.addAttribute("msg","empty_file");
-            return model;
+//            model.addAttribute("msg","empty_file");
+//            return model;
+            return "";
         }
 
         try {
@@ -156,13 +157,15 @@ public class NoteController {
             String content=noteService.transNote(path_str);
             model.addAttribute("content",content);
             model.addAttribute("msg","success");
+            System.err.println("controller,transformed content: "+content);
+            return content;
         } catch (IOException e) {
             //TODO TOO_LARGE,...
             model.addAttribute("msg","something_wrong");
             e.printStackTrace();
         }
 
-        return model;
+        return "";
     }
 
 }
