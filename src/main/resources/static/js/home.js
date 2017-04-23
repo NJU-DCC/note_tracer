@@ -5,11 +5,11 @@ $(document).ready(function(){
 
     $(document).on("click","#search-btn",function(){
         var key = $("#search-key").val();
-        var date = {"keyword":key};
+        var data = {"keyword":key};
         console.log(key);
         jQuery.ajax({
             async: false,
-            data: date,
+            data: data,
             url: "/note/search",
             type: "get",
             success: function (msg) {
@@ -25,14 +25,14 @@ $(document).ready(function(){
         var btn = $(this);
         var dir_name = btn.prev().val();
         var description = "";
-        var date = {
+        var data = {
             "name":dir_name,
             "description":description
         };
         btn.addClass("active");
         jQuery.ajax({
             async: false,
-            data: date,
+            data: data,
             url: "/note/addDir",
             type: "get",
             success: function (msg) {
@@ -47,20 +47,20 @@ $(document).ready(function(){
     $(document).on("click","#new-note-btn",function () {
         var btn = $(this);
         var note_name = btn.prev().val();
-        $(".menu").append(
-            "<li>" + note_name + "</li>"
-        );
+        console.log(note_name);
+
+        $("#editing").append(note_name);
 
     });
 
     $(document).on("click",".note-btn",function () {
         var btn = $(this);
         var noteId = btn.next().val();
-        var date = {"noteId":noteId};
+        var data = {"noteId":noteId};
         btn.addClass("active");
         jQuery.ajax({
             async: false,
-            data: date,
+            data: data,
             url: "/note/show",
             type: "get",
             success: function (msg) {
@@ -75,29 +75,31 @@ $(document).ready(function(){
 
     $(document).on("click","#create-btn",function () {
 
-        var name = "";
+        var name = $("#editing").innerHTML;
         var dirId = "";
-        var dirName = "";
+        var dirName = $(this).prev().val();
         var content = "";
 
-        var date = {
+        console.log(name);
+
+        var data = {
             "name":name,
             "dirId":dirId,
             "dirName":dirName,
             "content":content
         };
-        jQuery.ajax({
-            async: false,
-            data: date,
-            url: "/note/add",
-            type: "get",
-            success: function (msg) {
-                console.log(msg);
-            },
-            error: function () {
-                console.log("err in add");
-            }
-        });
+        // jQuery.ajax({
+        //     async: false,
+        //     data: data,
+        //     url: "/note/add",
+        //     type: "get",
+        //     success: function (msg) {
+        //         console.log(msg);
+        //     },
+        //     error: function () {
+        //         console.log("err in add");
+        //     }
+        // });
 
     });
 

@@ -10,10 +10,11 @@
 </head>
 <body>
 <style>
-    #content{
+    #content {
         height: 385px;
     }
-    #preview{
+
+    #preview {
         height: 460px;
         overflow: auto;
     }
@@ -30,7 +31,9 @@
         <div class="top-bar-right">
             <ul class="menu">
                 <li><input type="search" id="search-key" placeholder="任意关键词"/></li>
-                <li><button type="button" id="search-btn" class="button">搜索</button></li>
+                <li>
+                    <button type="button" id="search-btn" class="button">搜索</button>
+                </li>
                 <li><a href="#">登录</a></li>
                 <li><a href="#">退出</a></li>
             </ul>
@@ -50,15 +53,19 @@
                 </ul>
             </li>
         </ul>
-        <li><button id="create-title" class="hollow button" data-open="new-note">创建新笔记</button></li>
-        <li><button id="create-dir" class="hollow button" data-open="new-dir">创建新归档</button></li>
+        <li>
+            <button id="create-title" class="hollow button" data-open="new-note">创建新笔记</button>
+        </li>
+        <li>
+            <button id="create-dir" class="hollow button" data-open="new-dir">创建新归档</button>
+        </li>
 
-        <li><input type="text"></li>
+        <li id="editing"></li>
 
         <div class="reveal" id="new-note" data-reveal>
             <p class="lead">创建新笔记</p>
             <input type="text" id="note-title" placeholder="笔记标题"/>
-            <button class="hollow button" id="new-note-btn" data-close aria-label="Close modal" >确定</button>
+            <button class="hollow button" id="new-note-btn" data-close aria-label="Close modal">确定</button>
             <button class="hollow button secondary">取消</button>
             <button class="close-button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">&times;</span>
@@ -67,8 +74,8 @@
         <div class="reveal" id="new-dir" data-reveal>
             <p class="lead">创建新归档</p>
             <input type="text" id="dir-name" placeholder="归档名"/>
-            <button id="new-dir-btn" class="hollow button" data-close aria-label="Close modal" >确定</button>
-            <button class="hollow button secondary" data-close aria-label="Close modal" >取消</button>
+            <button id="new-dir-btn" class="hollow button" data-close aria-label="Close modal">确定</button>
+            <button class="hollow button secondary" data-close aria-label="Close modal">取消</button>
             <button class="close-button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -76,52 +83,50 @@
 
     </div>
     <div class="column" style="">
-        <!--<form method="post" action="/posts" style="height: 100%">-->
-            <!--<div class="form-group">-->
-                <!--<input id="title" name="title" type="text" placeholder="标题">-->
-            <!--</div>-->
-            <ul class="menu">
-                <li><a href="#">添加图片</a></li>
-                <li><a href="#" data-open="identify-pic">识别图片</a></li>
-            </ul>
+        <ul class="menu">
+            <li><a href="#">添加图片</a></li>
+            <li><a href="#" data-open="identify-pic">识别图片</a></li>
+        </ul>
 
-            <div  class="row" style="height: 650px;margin-bottom: 12px">
-                <div class="large-6 column">
+        <div class="row" style="height: 650px;margin-bottom: 12px">
+            <div class="large-6 column">
                     <textarea id="content" name="content"
                               style="height: 650px;"></textarea>
-                </div>
-                <div class="large-6 column">
-                    <div id="preview" style="height: 650px;"></div>
-                </div>
+            </div>
+            <div class="large-6 column">
+                <div id="preview" style="height: 650px;"></div>
+            </div>
+        </div>
+
+        <div class="reveal" id="exampleModal1" data-reveal>
+
+            <p class="lead">选择归档</p>
+            <input type="text" placeholder="归档名">
+
+            <div th:each="dir:${dirs}">
+                <select>
+                    <option th:value="${dir.id}" th:text="${dir.name}"></option>
+                </select>
             </div>
 
-            <div class="reveal" id="exampleModal1" data-reveal>
-                <!--<h5>创建</h5>-->
-                <p class="lead">Your couch. It is mine.</p>
 
-                <label>创建
-                    <select>
-                        <option value="husker">item1</option>
-                        <option value="starbuck">item2</option>
-                    </select>
-                </label>
 
-                <button class="hollow button">确定</button>
-                <button class="hollow button secondary">取消</button>
+            <button class="hollow button" id="create-btn" data-close aria-label="Close modal">确定</button>
+            <button class="hollow button secondary" data-close aria-label="Close modal">取消</button>
 
-                <button class="close-button" data-close aria-label="Close modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            <button class="close-button" data-close aria-label="Close modal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
 
-            <button data-open="exampleModal1" id="create-btn" class="hollow button">创建</button>
+        <button data-open="exampleModal1" class="hollow button">创建</button>
         <!--</form>-->
     </div>
 </div>
 
 <div class="reveal" id="identify-pic" data-reveal>
     <p class="lead">选择识别图片</p>
-    <form type="post" th:action="@{/transform}">
+    <form method="post" th:action="@{/note/transform}">
         <input type="file" name="file"/>
         <button class="hollow button" type="submit">确定</button>
     </form>
