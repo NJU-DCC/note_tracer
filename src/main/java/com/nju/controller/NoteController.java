@@ -146,9 +146,15 @@ public class NoteController {
     @ResponseBody
     public String transform(@RequestParam("file") MultipartFile file) {
         System.err.println("in transform controller");
-        String filePath = context.getRealPath("/resources/upload-images/");
+        String path=context.getRealPath("/resources");
+        System.err.println("path=???"+path);
+        String[] temps=path.split("/");
+        String imgPath="";
+        for(int i=0;i<temps.length-4;i++){
+            imgPath+=temps[i]+"/";
+        }
+        imgPath+="target/classes/static/img/scan-img/";
         System.err.println(file.getOriginalFilename());
-
         if (file.isEmpty()) {
             //TODO 反馈空文件错误
 //            model.addAttribute("msg","empty_file");
@@ -158,9 +164,11 @@ public class NoteController {
 
         try {
             byte[] bytes = file.getBytes();
-            String path_str=filePath+file.getOriginalFilename();
+            String path_str=imgPath+(new Date()).getTime()+file.getOriginalFilename();
             FileUtils.writeByteArrayToFile(new File(path_str), bytes);
             System.err.println(path_str);
+            int index=path_str.indexOf("/img/scan");
+            System.err.println(path_str.substring(index));
 
             String content=noteService.transNote(path_str);
 //            model.addAttribute("content",content);
@@ -175,5 +183,53 @@ public class NoteController {
 
         return "";
     }
+    @RequestMapping(value = "/uploadImg",method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadImg(@RequestParam("img") MultipartFile file) {
+
+        String filePath = context.getRealPath("/resources/upload-images/insert-images/");
+        System.err.println(file.getOriginalFilename());
+
+        if (file.isEmpty()) {
+            //TODO 反馈空文件错误
+//            model.addAttribute("msg","empty_file");
+//            return model;
+            return "";
+        }
+
+        try {
+            byte[] bytes = file.getBytes();
+            String path_str=filePath+(new Date()).getTime()+file.getOriginalFilename();
+            FileUtils.writeByteArrayToFile(new File(path_str), bytes);
+
+            System.err.println(path_str);
+
+            return path_str;
+        } catch (IOException e) {
+            //TODO TOO_LARGE,...
+//            model.addAttribute("msg","something_wrong");
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public void test(){
+        System.err.println("-------- In test controller----------");
+        String path=context.getRealPath("/resources");
+        System.err.println("path=???"+path);
+        String[] temps=path.split("/");
+        String imgPath="";
+        for(int i=0;i<temps.length-4;i++){
+            imgPath+=temps[i]+"/";
+        }
+        imgPath+="target/classes/static/img/";
+        System.err.println("path=???"+imgPath);
+
+//        String staticPath=p
+    }
+
 
 }
