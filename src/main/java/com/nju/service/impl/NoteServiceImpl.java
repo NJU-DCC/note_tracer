@@ -65,11 +65,7 @@ public class NoteServiceImpl implements NoteService {
     public String transNote(String filename) {
         String response = ApiUtil.postFile(filename, "chs");
         JSONObject res = new JSONObject(response);
-        String text = res
-                .getJSONArray("ParsedResults")
-                .getJSONObject(0)
-                .getString("ParsedText");
-        return text;
+        return ApiUtil.parseText(res);
     }
 
     @Override
