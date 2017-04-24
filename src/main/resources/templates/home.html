@@ -53,20 +53,18 @@
                 </ul>
             </li>
         </ul>
-        <li>
+        <div>
             <button id="create-title" class="hollow button" data-open="new-note">创建新笔记</button>
-        </li>
-        <li>
+        </div>
+        <div>
             <button id="create-dir" class="hollow button" data-open="new-dir">创建新归档</button>
-        </li>
-
-        <li id="editing"></li>
+        </div>
 
         <div class="reveal" id="new-note" data-reveal>
             <p class="lead">创建新笔记</p>
             <input type="text" id="note-title" placeholder="笔记标题"/>
             <button class="hollow button" id="new-note-btn" data-close aria-label="Close modal">确定</button>
-            <button class="hollow button secondary">取消</button>
+            <button class="hollow button secondary" data-close aria-label="Close modal">取消</button>
             <button class="close-button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -88,10 +86,16 @@
             <li><a href="#" data-open="identify-pic">识别图片</a></li>
         </ul>
 
+        <div class="row">
+            <div class="large-6 column">
+                <input type="text" id="editing" placeholder="标题">
+            </div>
+        </div>
+
         <div class="row" style="height: 650px;margin-bottom: 12px">
             <div class="large-6 column">
                     <textarea id="content" name="content"
-                              style="height: 650px;"></textarea>
+                style="height: 650px;"></textarea>
             </div>
             <div class="large-6 column">
                 <div id="preview" style="height: 650px;"></div>
@@ -124,10 +128,11 @@
 
 <div class="reveal" id="identify-pic" data-reveal>
     <p class="lead">选择识别图片</p>
-    <form method="post" th:action="@{/note/transform}" enctype="multipart/form-data">
+    <form id="identify-form" enctype="multipart/form-data">
         <input type="file" name="file"/>
-        <button class="hollow button" type="submit">确定</button>
+        <a class="hollow button" id="identify-btn" data-close aria-label="Close modal">确定</a>
     </form>
+    <button class="hollow button" data-close aria-label="Close modal">取消</button>
     <button class="close-button" data-close aria-label="Close modal" type="button">
         <span aria-hidden="true">&times;</span>
     </button>
