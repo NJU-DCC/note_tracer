@@ -124,7 +124,7 @@
 
 <div class="reveal" id="identify-pic" data-reveal>
     <p class="lead">选择识别图片</p>
-    <form method="post" th:action="@{/note/transform}">
+    <form method="post" th:action="@{/note/transform}" enctype="multipart/form-data">
         <input type="file" name="file"/>
         <button class="hollow button" type="submit">确定</button>
     </form>
