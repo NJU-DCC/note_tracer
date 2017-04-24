@@ -5,8 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>主页</title>
+    <script type="text/javascript" src="../js/vendor/modernizr.custom.js"></script>
     <link rel="stylesheet" href="../css/foundation.css"/>
     <link rel="stylesheet" href="../css/app.css"/>
+
 </head>
 <body>
 <style>
@@ -17,6 +19,18 @@
     #preview {
         height: 460px;
         overflow: auto;
+    }
+    .find-notes {
+        border: solid 1px #8a8a8a;
+        background-color: white;
+        border-radius: 3px;
+    }
+    #search-ans {
+
+        width: 200px;
+        z-index: 1000;
+        position: fixed;
+        right: 170px;
     }
 </style>
 <div class="top-bar">
@@ -30,7 +44,11 @@
     <div id="responsive-menu">
         <div class="top-bar-right">
             <ul class="menu">
-                <li><input type="search" id="search-key" placeholder="任意关键词"/></li>
+                <!--<li><input type="search" id="search-key" placeholder="任意关键词"/></li>-->
+                <li>
+                    <input id="search-key" name="search-highlight" placeholder="任意关键词" type="search" data-list=".highlight_list" autocomplete="off">
+                </li>
+
                 <li>
                     <button type="button" id="search-btn" class="button">搜索</button>
                 </li>
@@ -40,6 +58,10 @@
         </div>
     </div>
 </div>
+<div id="search-ans">
+    <ul class="vertical highlight_list" id="search-result"></ul>
+</div>
+
 <div class="row" style="height: 100%;">
     <div class="small-2 large-2 column" style="background-color:#f1f1f1;">
         <ul class="vertical menu" style="float: left;" data-accordion-menu th:each="dir:${dirs}">
@@ -159,6 +181,17 @@
 <script type="text/javascript" src="../js/myjs.js"></script>
 <script src="../js/home.js"></script>
 <script src="../js/dsn.js"></script>
+<script type="text/javascript" src="../js/vendor/waypoints.min.js"></script>
+
+<script type="text/javascript" src="../js/vendor/waypoints-sticky.min.js"></script>
+
+<script type="text/javascript" src="../js/vendor/jquery.hideseek.min.js"></script>
+
+<script type="text/javascript" src="../js/vendor/rainbow-custom.min.js"></script>
+
+<script type="text/javascript" src="../js/vendor/jquery.anchor.js"></script>
+
+<script src="../js/initializers.js"></script>
 
 <!--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
 

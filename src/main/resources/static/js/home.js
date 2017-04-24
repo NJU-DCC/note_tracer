@@ -6,7 +6,6 @@ $(document).ready(function(){
     $(document).on("click","#search-btn",function(){
         var key = $("#search-key").val();
         var data = {"keyword":key};
-        console.log(key);
         jQuery.ajax({
             async: false,
             data: data,
@@ -14,6 +13,17 @@ $(document).ready(function(){
             type: "get",
             success: function (msg) {
                 console.log(msg);
+                var len = msg.length;
+                console.log(msg.length);
+                var res = "";
+                for (var i = 0;i < len;i++){
+                    res += "<li class='note-btn'><a>(" + msg[i]["dirName"] + ")   "
+                        + msg[i]["name"] + "</a></li>"
+                    + "<input type='hidden' value='" + msg[i]["id"] + "'/>";
+                    // console.log(res);
+                }
+                $("#search-ans").addClass("find-notes");
+                $("#search-result").append(res);
             },
             error: function () {
                 console.log("err in search");
@@ -61,6 +71,8 @@ $(document).ready(function(){
         var noteId = btn.next().val();
         var data = {"noteId":noteId};
 
+        console.log(noteId);
+
         $("a.active").removeClass("active");
         btn.addClass("active");
 
@@ -75,7 +87,8 @@ $(document).ready(function(){
                 $("#content").val(msg["content"]);
                 $("#editing").val(msg["name"]);
                 $('#preview').html(marked($('#content').val()));
-
+                $("#search-result").children().remove();
+                $("#search-ans").removeClass("find-notes");
             },
             error: function () {
                 console.log("err in show");
