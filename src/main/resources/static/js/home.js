@@ -46,7 +46,11 @@ $(document).ready(function(){
             url: "/note/addDir",
             type: "get",
             success: function (msg) {
-                // console.log(msg);
+                var content = "<li>" +
+                    "<a href='#'>" + dir_name + "</a><" +
+                    "<ul class='menu vertical nested'></ul>" +
+                    "/li>";
+                $("#dirs").append(content);
             },
             error: function () {
                 console.log("err in show");
@@ -120,7 +124,14 @@ $(document).ready(function(){
             url: "/note/add",
             type: "post",
             success: function (msg) {
-                // console.log(msg);
+                // $("a.dir-name:eq(dirName)").next().append("<li>" +
+                //     "<a href='#' class='note-btn' " + name + "></a>" +
+                //     "<input type='hidden' value='" + nodeId + "'/>" +
+                //     "</li>");
+                // location.reload();
+                // $("#content").val(content);
+                // $("#editing").val(name);
+                // $('#preview').html(marked($('#content').val()));
             },
             error: function (data) {
                 // console.log(JSON.stringify(data));

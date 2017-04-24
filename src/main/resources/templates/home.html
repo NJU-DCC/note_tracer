@@ -30,7 +30,7 @@
         width: 200px;
         z-index: 1000;
         position: fixed;
-        right: 170px;
+        right: 50px;
     }
 </style>
 <div class="top-bar">
@@ -52,8 +52,6 @@
                 <li>
                     <button type="button" id="search-btn" class="button">搜索</button>
                 </li>
-                <li><a href="#">登录</a></li>
-                <li><a href="#">退出</a></li>
             </ul>
         </div>
     </div>
@@ -64,9 +62,9 @@
 
 <div class="row" style="height: 100%;">
     <div class="small-2 large-2 column" style="background-color:#f1f1f1;">
-        <ul class="vertical menu" style="float: left;" data-accordion-menu th:each="dir:${dirs}">
+        <ul class="vertical menu" style="float: left;" data-accordion-menu th:each="dir:${dirs}" id="dirs">
             <li>
-                <a href="#" th:text="${dir.name}"></a>
+                <a href="#" th:text="${dir.name}" class="dir-name"></a>
                 <ul class="menu vertical nested" th:each="note:${dir.notes}">
                     <li>
                         <a href="#" class="note-btn" th:text="${note.name}"></a>
@@ -114,13 +112,13 @@
             </div>
         </div>
 
-        <div class="row" style="height: 650px;margin-bottom: 12px">
+        <div class="row" style="height: 700px;margin-bottom: 12px">
             <div class="large-6 column">
                     <textarea id="content" name="content"
-                style="height: 650px;"></textarea>
+                style="height: 700px;"></textarea>
             </div>
             <div class="large-6 column">
-                <div id="preview" style="height: 650px;"></div>
+                <div id="preview" style="height: 700px;"></div>
             </div>
         </div>
 
