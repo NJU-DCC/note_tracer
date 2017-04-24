@@ -608,7 +608,7 @@ a {
   color: #2ba6cb;
   text-decoration: none;
   cursor: pointer; }
-  a:hover, a:focus {
+  a:hover{
     color: #258faf; }
   a img {
     border: 0; }
