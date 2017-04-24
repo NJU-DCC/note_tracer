@@ -31,10 +31,11 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public List<NoteModel> search(String keyword, Integer uid) {
+        keyword=keyword.toLowerCase();
         List<NoteModel> allNotes = getNotesByUser(uid);
         List<NoteModel> ret = new ArrayList<>();
         for (NoteModel note: allNotes) {
-            if (note.getTitle().contains(keyword) || note.getContent().contains(keyword)){
+            if (note.getTitle().toLowerCase().contains(keyword) || note.getContent().toLowerCase().contains(keyword)){
                 ret.add(note);
             }
         }
