@@ -36,7 +36,7 @@ $(document).ready(function(){
             url: "/note/addDir",
             type: "get",
             success: function (msg) {
-                console.log(msg);
+                // console.log(msg);
             },
             error: function () {
                 console.log("err in show");
@@ -71,7 +71,7 @@ $(document).ready(function(){
             type: "get",
             success: function (msg) {
                 // btn.addClass("active");
-                console.log(msg);
+                // console.log(msg);
                 $("#content").val(msg["content"]);
                 $("#editing").val(msg["name"]);
                 $('#preview').html(marked($('#content').val()));
@@ -107,10 +107,10 @@ $(document).ready(function(){
             url: "/note/add",
             type: "post",
             success: function (msg) {
-                console.log(msg);
+                // console.log(msg);
             },
             error: function (data) {
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
             }
         });
 
