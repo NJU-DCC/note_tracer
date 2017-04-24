@@ -91,9 +91,13 @@ public class NoteController {
         System.out.println("----------in controller showNote-----------");
 
         NoteModel noteModel=noteService.getNote(noteId);
-        DirModel dirModel=noteService.getDir(noteModel.getDirId());
-        NoteDetailVO note=new NoteDetailVO(noteModel,dirModel);
-        return note;
+        if(noteModel!=null){
+            DirModel dirModel=noteService.getDir(noteModel.getDirId());
+            NoteDetailVO note=new NoteDetailVO(noteModel,dirModel);
+            return note;
+        }
+        return null;
+
     }
 
     @RequestMapping("/update")
