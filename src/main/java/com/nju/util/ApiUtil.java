@@ -102,6 +102,7 @@ public class ApiUtil {
                 j++;
             }
         }
+        ret = ret.replaceAll("\\n", "\n\n");
         return ret;
     }
 
