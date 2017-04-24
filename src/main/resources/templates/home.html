@@ -101,14 +101,12 @@
         <div class="reveal" id="exampleModal1" data-reveal>
 
             <p class="lead">选择归档</p>
-            <input type="text" placeholder="归档名">
 
-            <div th:each="dir:${dirs}">
-                <select>
+            <select id="select-dir">
+                <div th:each="dir:${dirs}">
                     <option th:value="${dir.id}" th:text="${dir.name}"></option>
-                </select>
-            </div>
-
+                </div>
+            </select>
 
 
             <button class="hollow button" id="create-btn" data-close aria-label="Close modal">确定</button>
