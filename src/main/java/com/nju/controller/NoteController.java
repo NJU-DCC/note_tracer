@@ -146,14 +146,7 @@ public class NoteController {
     @ResponseBody
     public String transform(@RequestParam("file") MultipartFile file) {
         System.err.println("in transform controller");
-        String path=context.getRealPath("/resources");
-        System.err.println("path=???"+path);
-        String[] temps=path.split("/");
-        String imgPath="";
-        for(int i=0;i<temps.length-4;i++){
-            imgPath+=temps[i]+"/";
-        }
-        imgPath+="target/classes/static/img/scan-img/";
+        String path=getImgFolderPath()+"scan-img/";
         System.err.println(file.getOriginalFilename());
         if (file.isEmpty()) {
             //TODO 反馈空文件错误
@@ -161,14 +154,11 @@ public class NoteController {
 //            return model;
             return "";
         }
-
         try {
             byte[] bytes = file.getBytes();
-            String path_str=imgPath+(new Date()).getTime()+file.getOriginalFilename();
+            String path_str=path+(new Date()).getTime()+file.getOriginalFilename();
             FileUtils.writeByteArrayToFile(new File(path_str), bytes);
             System.err.println(path_str);
-            int index=path_str.indexOf("/img/scan");
-            System.err.println(path_str.substring(index));
 
             String content=noteService.transNote(path_str);
 //            model.addAttribute("content",content);
@@ -185,26 +175,20 @@ public class NoteController {
     }
     @RequestMapping(value = "/uploadImg",method = RequestMethod.POST)
     @ResponseBody
-    public String uploadImg(@RequestParam("img") MultipartFile file) {
-
-        String filePath = context.getRealPath("/resources/upload-images/insert-images/");
+    public String uploadImg(@RequestParam("file") MultipartFile file) {
+        String path=getImgFolderPath()+"insert-img/";
         System.err.println(file.getOriginalFilename());
-
         if (file.isEmpty()) {
             //TODO 反馈空文件错误
-//            model.addAttribute("msg","empty_file");
-//            return model;
             return "";
         }
-
         try {
             byte[] bytes = file.getBytes();
-            String path_str=filePath+(new Date()).getTime()+file.getOriginalFilename();
+            String path_str=path+(new Date()).getTime()+file.getOriginalFilename();
             FileUtils.writeByteArrayToFile(new File(path_str), bytes);
+            int index=path_str.indexOf("/img/insert");
+            return path_str.substring(index);
 
-            System.err.println(path_str);
-
-            return path_str;
         } catch (IOException e) {
             //TODO TOO_LARGE,...
 //            model.addAttribute("msg","something_wrong");
@@ -229,6 +213,18 @@ public class NoteController {
         System.err.println("path=???"+imgPath);
 
 //        String staticPath=p
+    }
+
+    private String getImgFolderPath(){
+        String path=context.getRealPath("/resources");
+        System.err.println("path=???"+path);
+        String[] temps=path.split("/");
+        String imgPath="";
+        for(int i=0;i<temps.length-4;i++){
+            imgPath+=temps[i]+"/";
+        }
+        imgPath+="target/classes/static/img/";
+        return imgPath;
     }
 
 
