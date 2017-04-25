@@ -49,7 +49,7 @@ $(document).ready(function(){
                 var content = "<li>" +
                     "<a href='#'>" + dir_name + "</a><" +
                     "<ul class='menu vertical nested'></ul>" +
-                    "/li>";
+                    "</li>";
                 $("#dirs").append(content);
             },
             error: function () {
