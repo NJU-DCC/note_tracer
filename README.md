@@ -1,6 +1,6 @@
-### NoteTracer
+## NoteTracer
 可图片识别的在线笔记整理系统
-#### TODO
+### TODO
 
 - 强化搜索： 识别图片中的文字
 - 提高识别准确率
